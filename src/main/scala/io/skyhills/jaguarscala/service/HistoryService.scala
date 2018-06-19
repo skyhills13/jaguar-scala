@@ -21,6 +21,13 @@ class HistoryService[F[_] : Effect] extends Http4sDsl[F] {
 
             case GET -> Root / IntVar(corpId) / "buy" =>
                 Ok()
+
+            case POST -> Root / IntVar(corpId) / "sell" =>
+                Ok()
+
+            case POST -> Root / IntVar(corpId) / "buy" =>
+                Ok()
         }
     }
 }
+
