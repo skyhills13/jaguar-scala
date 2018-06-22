@@ -2,6 +2,7 @@ val Http4sVersion = "0.18.9"
 val Specs2Version = "4.1.0"
 val LogbackVersion = "1.2.3"
 val ScalaCheckVersion = "1.14.0"
+val NscalaTimeVersion = "2.20.0"
 
 lazy val root = (project in file("."))
   .settings(
@@ -16,7 +17,8 @@ lazy val root = (project in file("."))
       "org.specs2"     %% "specs2-core"          % Specs2Version % Test,
       "ch.qos.logback"  %  "logback-classic"     % LogbackVersion,
       "org.specs2"      %% "specs2-scalacheck"   % Specs2Version % Test,
-      "org.scalacheck"  %% "scalacheck"          % ScalaCheckVersion % Test
+      "org.scalacheck"  %% "scalacheck"          % ScalaCheckVersion % Test,
+      "com.github.nscala-time" %% "nscala-time" % NscalaTimeVersion
     )
   )
 

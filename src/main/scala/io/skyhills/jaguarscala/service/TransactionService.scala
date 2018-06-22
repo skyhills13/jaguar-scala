@@ -1,15 +1,16 @@
 package io.skyhills.jaguarscala.service
 
-import cats.effect.Effect
+import cats.effect.{Effect, IO}
 import io.circe.Json
 import org.http4s.circe._
-import org.http4s.HttpService
+import org.http4s.{EntityEncoder, HttpService}
 import org.http4s.dsl.Http4sDsl
+import com.github.nscala_time.time.Imports._
 
 /**
   * Created by soeunpark on 2018. 5. 25..
   */
-class HistoryService[F[_] : Effect] extends Http4sDsl[F] {
+class TransactionService[F[_] : Effect] extends Http4sDsl[F] {
 
     val service: HttpService[F] = {
         HttpService[F] {

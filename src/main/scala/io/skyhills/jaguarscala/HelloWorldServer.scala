@@ -2,7 +2,7 @@ package io.skyhills.jaguarscala
 
 import cats.effect.{Effect, IO}
 import fs2.StreamApp
-import io.skyhills.jaguarscala.service.{HelloWorldService, HistoryService, WishService}
+import io.skyhills.jaguarscala.service.{HelloWorldService, TransactionService, WishService}
 import org.http4s.HttpService
 import org.http4s.server.blaze.BlazeBuilder
 
@@ -18,14 +18,14 @@ object HelloWorldServer extends StreamApp[IO] {
 object ServerStream {
 
     def helloWorldService[F[_] : Effect]: HttpService[F] = new HelloWorldService[F].service
-    def historyService[F[_] : Effect]: HttpService[F] = new HistoryService[F].service
+    def transactionService[F[_] : Effect]: HttpService[F] = new TransactionService[F].service
     def wishService[F[_] : Effect]: HttpService[F] = new WishService[F].service
 
     def stream[F[_] : Effect](implicit ec: ExecutionContext): fs2.Stream[F, StreamApp.ExitCode] =
         BlazeBuilder[F]
             .bindHttp(8080, "0.0.0.0")
             .mountService(helloWorldService, "/")
-            .mountService(historyService,"/history")
-            .mountService(historyService,"/wish")
+            .mountService(transactionService,"/history")
+            .mountService(wishService,"/wish")
             .serve
 }
