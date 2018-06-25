@@ -21,11 +21,15 @@ object ServerStream {
     def transactionService[F[_] : Effect]: HttpService[F] = new TransactionService[F].service
     def wishService[F[_] : Effect]: HttpService[F] = new WishService[F].service
 
-    def stream[F[_] : Effect](implicit ec: ExecutionContext): fs2.Stream[F, StreamApp.ExitCode] =
-        BlazeBuilder[F]
-            .bindHttp(8080, "0.0.0.0")
-            .mountService(helloWorldService, "/")
-            .mountService(transactionService,"/history")
-            .mountService(wishService,"/wish")
-            .serve
+    def stream[F[_] : Effect](implicit ec: ExecutionContext): fs2.Stream[F, StreamApp.ExitCode] = {
+        for{
+//            _ <- Database.transactor()
+            exitCode <- BlazeBuilder[F]
+                .bindHttp(8080, "0.0.0.0")
+                .mountService(helloWorldService, "/")
+                .mountService(transactionService,"/history")
+                .mountService(wishService,"/wish")
+                .serve
+        } yield exitCode
+    }
 }
