@@ -9,6 +9,8 @@ import org.http4s.circe._
 import io.circe.syntax._
 import io.skyhills.jaguarscala.Corporation
 import org.http4s.dsl.Http4sDsl
+import io.circe.generic.auto._
+import io.circe.syntax._
 
 class HelloWorldService[F[_] : Effect](repository: TestRepository) extends Http4sDsl[F] {
 
@@ -17,8 +19,8 @@ class HelloWorldService[F[_] : Effect](repository: TestRepository) extends Http4
             case GET -> Root / "hello" / name =>
                 Ok(Json.obj("message" -> Json.fromString(s"Hello, ${name}")))
 
-//            case GET -> Root / "test" / LongVar(id) =>
-
+            case GET -> Root / "test" =>
+                Ok(Corporation(1, "aaa", true).asJson)
         }
     }
 }
