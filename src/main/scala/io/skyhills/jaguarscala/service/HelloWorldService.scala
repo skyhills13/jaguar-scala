@@ -20,13 +20,18 @@ class HelloWorldService[F[_] : Effect](repository: TestRepository) extends Http4
             case GET -> Root / "test" =>
                 Ok(Corporation(1, "aaa", true).asJson)
 
-//            case GET -> Root / "test" /  LongVar(corpId) =>
-//                /*
-//                repository.getCorp: Stream[IO, Corporation]
-//                map(Corporation => Json): Stream[IO, Json]
-//                type should be Ok(Json) but Ok(Stream[IO, Json]) now.
-//                */
-//                Ok(repository.getCorp(corpId).map(_.asJson))
+            case GET -> Root / "test" / LongVar(corpId) =>
+                /*
+                repository.getCorp: Option[Corporation]
+                map(Corporation => Json): Option[Json]
+                */
+                val corp = repository.getCorp(corpId).map(_.asJson)
+                corp match {
+                    case Some(c) =>
+                        Ok(c)
+                    case None =>
+                        NotFound("Corporation Not Found")
+                }
         }
     }
 }
