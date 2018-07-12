@@ -1,9 +1,7 @@
 package io.skyhills.jaguarscala
 
-import cats.effect.{Effect, IO}
-import doobie.h2.H2Transactor
-import fs2.{StreamApp, Stream}
-import io.skyhills.jaguarscala.repository.TestRepository
+import cats.effect.IO
+import fs2.{Stream, StreamApp}
 import io.skyhills.jaguarscala.service.{TestService, TransactionService, WishService}
 import org.http4s.HttpService
 import org.http4s.server.blaze.BlazeBuilder
@@ -18,10 +16,9 @@ object MainServer extends StreamApp[IO] {
 }
 
 object ServerStream {
-    val xa: H2Transactor[IO] = Database.transactor()
-    def helloWorldService: HttpService[IO] = new TestService(new TestRepository(xa)).service
-    def transactionService: HttpService[IO] = new TransactionService[IO].service
-    def wishService: HttpService[IO] = new WishService[IO].service
+    def helloWorldService: HttpService[IO] = TestService.service
+    def transactionService: HttpService[IO] = TransactionService.service
+    def wishService: HttpService[IO] = WishService.service
 
 
     def stream(implicit ec: ExecutionContext): fs2.Stream[IO, StreamApp.ExitCode] =
