@@ -1,9 +1,6 @@
 package io.skyhills.jaguarscala
 
-import cats.effect.IO
 import com.github.nscala_time.time.Imports.DateTime
-import org.http4s.{EntityDecoder, EntityEncoder}
-import org.http4s.circe.{jsonEncoderOf, jsonOf}
 
 /**
   * Created by soeunpark on 2018. 6. 3...

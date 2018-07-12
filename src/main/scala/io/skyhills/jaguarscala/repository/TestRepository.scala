@@ -1,9 +1,8 @@
 package io.skyhills.jaguarscala.repository
 
 import cats.effect.IO
-import doobie.implicits._
-import fs2.Stream
 import doobie.h2.H2Transactor
+import doobie.implicits._
 import io.skyhills.jaguarscala.Corporation
 
 /**
