@@ -9,13 +9,14 @@ import io.skyhills.jaguarscala.Corporation
 /**
   * Created by soeunpark on 2018. 6. 26..
   */
-class TestRepository(xa: IO[H2Transactor[IO]]) {
-    //FIXME this method doesn't have to return Stream.
+class TestRepository(xa: H2Transactor[IO]) {
     def getCorp(id: Long): Option[Corporation] = {
-        sql"SELECT corpId, corpName, isFavorite FROM Corporation WHERE corpId = $id".query[Corporation].stream.take(1).compile.toList.map(_.headOption).transact(xa.unsafeRunSync()).unsafeRunSync()
+        sql"SELECT corpId, corpName, isFavorite FROM Corporation WHERE corpId = $id"
+         .query[Corporation].stream.take(1).compile.toList.map(_.headOption).transact(xa).unsafeRunSync()
     }
 
-    def getCorps(isFavorite: Boolean): Stream[IO, Corporation] = {
-        sql"SELECT corpId, corpName, isFavorite FROM Corporation WHERE isFavorite = $isFavorite".query[Corporation].stream.transact(xa.unsafeRunSync())
+    def getCorps(isFavorite: Boolean, count: Int): List[Corporation] = {
+        sql"SELECT corpId, corpName, isFavorite FROM Corporation WHERE isFavorite = $isFavorite"
+            .query[Corporation].stream.take(count).compile.toList.transact(xa).unsafeRunSync()
     }
 }

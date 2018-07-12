@@ -18,7 +18,7 @@ object HelloWorldServer extends StreamApp[IO] {
 }
 
 object ServerStream {
-    val xa: IO[H2Transactor[IO]] = Database.transactor()
+    val xa: H2Transactor[IO] = Database.transactor()
     def helloWorldService[F[_] : Effect]: HttpService[F] = new HelloWorldService(new TestRepository(xa)).service
     def transactionService[F[_] : Effect]: HttpService[F] = new TransactionService[F].service
     def wishService[F[_] : Effect]: HttpService[F] = new WishService[F].service

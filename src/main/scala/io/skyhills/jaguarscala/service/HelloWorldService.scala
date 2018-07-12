@@ -32,6 +32,10 @@ class HelloWorldService[F[_] : Effect](repository: TestRepository) extends Http4
                     case None =>
                         NotFound("Corporation Not Found")
                 }
+
+            case GET -> Root / "fav" =>
+                val corps = repository.getCorps(false, 5).map(_.asJson)
+                    Ok(Json.fromValues(corps))
         }
     }
 }
