@@ -10,10 +10,6 @@ import org.http4s.circe.{jsonEncoderOf, jsonOf}
   */
 case class Corporation(corpId: Int, corpName: String, isFavorite: Boolean)
 
-//object Corporation {
-//    implicit def corporationEncoder: EntityEncoder[IO, Corporation] = ???
-//}
-//
 case class Transaction(txId: Int, corpId: Int, txType: String, price: Long, createdAt: DateTime)
 
 //FIXME make txType and wishType as ENUM like thing

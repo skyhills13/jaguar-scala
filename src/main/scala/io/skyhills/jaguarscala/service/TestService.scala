@@ -10,7 +10,7 @@ import org.http4s.dsl.Http4sDsl
 import io.circe.generic.auto._
 import io.circe.syntax._
 
-class HelloWorldService[F[_] : Effect](repository: TestRepository) extends Http4sDsl[F] {
+class TestService[F[_] : Effect](repository: TestRepository) extends Http4sDsl[F] {
 
     val service: HttpService[F] = {
         HttpService[F] {
@@ -34,7 +34,7 @@ class HelloWorldService[F[_] : Effect](repository: TestRepository) extends Http4
                 }
 
             case GET -> Root / "fav" =>
-                val corps = repository.getCorps(false, 5).map(_.asJson)
+                val corps = repository.getCorps(true, 5).map(_.asJson)
                     Ok(Json.fromValues(corps))
         }
     }
