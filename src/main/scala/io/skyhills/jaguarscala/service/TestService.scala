@@ -12,16 +12,16 @@ import org.http4s.dsl.Http4sDsl
 
 object TestService extends Http4sDsl[IO] {
 
-    val repository:TestRepository = new TestRepository(Database.transactor())
+    val repository: TestRepository = new TestRepository(Database.transactor())
 
     val service: HttpService[IO] = HttpService[IO] {
         case GET -> Root / "hello" / name =>
             Ok(Json.obj("message" -> Json.fromString(s"Hello, ${name}")))
 
         case GET -> Root / "test" =>
-            Ok(Corporation(1, "aaa", true).asJson)
+            Ok(Corporation("1", "aaa", true).asJson)
 
-        case GET -> Root / "test" / LongVar(corpId) =>
+        case GET -> Root / "test" / corpId =>
             val corp = repository.getCorp(corpId).map(_.asJson)
             corp match {
                 case Some(c) =>
