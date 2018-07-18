@@ -23,7 +23,7 @@ lazy val root = (project in file("."))
             "org.scalacheck" %% "scalacheck" % ScalaCheckVersion % Test,
             "com.github.nscala-time" %% "nscala-time" % NscalaTimeVersion,
             "org.tpolecat" %% "doobie-core" % DoobieVersion,
-            "org.tpolecat" %% "doobie-h2" % DoobieVersion,
+            "org.tpolecat" %% "doobie-postgres" % DoobieVersion,
             "org.tpolecat" %% "doobie-hikari" % DoobieVersion
         )
     )
