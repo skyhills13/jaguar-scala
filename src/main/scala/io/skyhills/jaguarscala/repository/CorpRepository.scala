@@ -3,7 +3,6 @@ package io.skyhills.jaguarscala.repository
 import cats.effect.IO
 import doobie.implicits._
 import doobie.util.transactor.Transactor
-import doobie.util.update.Update
 import io.skyhills.jaguarscala.Corporation
 
 /**
@@ -20,13 +19,13 @@ class CorpRepository(xa: Transactor[IO]) {
             .query[Corporation].stream.take(count).compile.toList.transact(xa).unsafeRunSync()
     }
 
-    def insertCorp(corpId: String, corpName: String, isFavorite: Boolean): Unit ={
+    def insertCorp(corpId: String, corpName: String, isFavorite: Boolean): Int ={
         sql"INSERT INTO Corporation (corpId, corpName, isFavorite) VALUES ($corpId, $corpName, $isFavorite)"
             .update.run.transact(xa).unsafeRunSync()
     }
 
-    def initCorps(corps: List[Corporation]): Int = {
-        val sql = "INSERT INTO Corporation (corpId, corpName, isFavorite) values (?, ?, ?)"
-        Update[Corporation](sql).updateMany(corps).transact(xa).unsafeRunSync()
-    }
+//    def initCorps(corps: List[Corporation]): Int = {
+//        val sql = "INSERT INTO Corporation (corpId, corpName, isFavorite) values (?, ?, ?)"
+//        Update[Corporation](sql).updateMany(corps).transact(xa).unsafeRunSync()
+//    }
 }
