@@ -1,21 +1,18 @@
 package io.skyhills.jaguarscala
 
+import cats.effect.IO
 import doobie._
-import cats.effect._
-import doobie.h2.H2Transactor
 
 /**
   * Created by soeunpark on 2018. 6. 25..
   */
 object Database {
-
-    def transactor():IO[Transactor[IO]] = {
-        H2Transactor.newH2Transactor[IO](
-            "jdbc:h2:tcp://localhost/~/test",
-            "sa",
+    def transactor(): Transactor[IO] = {
+        Transactor.fromDriverManager(
+            "org.postgresql.Driver",
+            "jdbc:postgresql:jaguar",
+            "soeunpark",
             ""
         )
     }
-
-    def init(transactor: Transactor[IO]): IO[Unit] = ???
 }

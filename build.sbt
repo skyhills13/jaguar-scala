@@ -15,13 +15,15 @@ lazy val root = (project in file("."))
             "org.http4s" %% "http4s-blaze-server" % Http4sVersion,
             "org.http4s" %% "http4s-circe" % Http4sVersion,
             "org.http4s" %% "http4s-dsl" % Http4sVersion,
+            "io.circe" %% "circe-generic" % "0.9.3",
+            "io.circe" %% "circe-literal" % "0.9.3",
             "org.specs2" %% "specs2-core" % Specs2Version % Test,
             "ch.qos.logback" % "logback-classic" % LogbackVersion,
             "org.specs2" %% "specs2-scalacheck" % Specs2Version % Test,
             "org.scalacheck" %% "scalacheck" % ScalaCheckVersion % Test,
             "com.github.nscala-time" %% "nscala-time" % NscalaTimeVersion,
             "org.tpolecat" %% "doobie-core" % DoobieVersion,
-            "org.tpolecat" %% "doobie-h2" % DoobieVersion,
+            "org.tpolecat" %% "doobie-postgres" % DoobieVersion,
             "org.tpolecat" %% "doobie-hikari" % DoobieVersion
         )
     )
