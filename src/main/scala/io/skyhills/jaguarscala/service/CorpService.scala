@@ -31,8 +31,9 @@ object CorpService extends Http4sDsl[IO] {
         for (
             line <- Source.fromURL(getClass.getResource("/corp.csv")).getLines()
         ) {
-            val corpName = line.split(",").head
-            val corpId = "%06d".format(line.split(",").last.toInt)
+            val corpProps = line.split(",")
+            val corpName = corpProps.head
+            val corpId = "%06d".format(corpProps.last.toInt)
             val insertedRow = repository.insertCorp(corpId, corpName, isFavorite = false)
             count += insertedRow
         }
