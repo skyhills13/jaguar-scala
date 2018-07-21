@@ -26,7 +26,7 @@ object ServerStream {
         BlazeBuilder[IO]
             .bindHttp(8080, "0.0.0.0")
             .mountService(helloWorldService, "/")
-            .mountService(corpService, "/corp")
+            .mountService(corpService, "/corps")
             .mountService(transactionService,"/history")
             .mountService(wishService,"/wish")
             .serve
