@@ -19,7 +19,7 @@ object TestService extends Http4sDsl[IO] {
             Ok(Json.obj("message" -> Json.fromString(s"Hello, ${name}")))
 
         case GET -> Root / "test" =>
-            Ok(Corporation("1", "aaa", true).asJson)
+            Ok(Corporation("1", "aaa", true, 0).asJson)
 
         case GET -> Root / "test" / corpId =>
             val corp = repository.getCorp(corpId).map(_.asJson)

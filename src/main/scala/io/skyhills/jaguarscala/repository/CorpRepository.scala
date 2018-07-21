@@ -11,12 +11,12 @@ import org.http4s.Request
   */
 class CorpRepository(xa: Transactor[IO]) {
     def getCorp(id: String): Option[Corporation] = {
-        sql"SELECT corpId, corpName, isFavorite FROM Corporation WHERE corpId = $id"
+        sql"SELECT corpId, corpName, isFavorite, order FROM Corporation WHERE corpId = $id"
           .query[Corporation].stream.take(1).compile.toList.map(_.headOption).transact(xa).unsafeRunSync()
     }
 
     def getCorps(isFavorite: Boolean, count: Int): List[Corporation] = {
-        sql"SELECT corpId, corpName, isFavorite FROM Corporation WHERE isFavorite = $isFavorite"
+        sql"SELECT corpId, corpName, isFavorite, order FROM Corporation WHERE isFavorite = $isFavorite ORDER BY order ASC"
           .query[Corporation].stream.take(count).compile.toList.transact(xa).unsafeRunSync()
     }
 

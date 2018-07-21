@@ -41,7 +41,7 @@ object CorpService extends Http4sDsl[IO] {
             }
             Ok(Json.fromValues(repository.getCorps(isFavorite, count).map(_.asJson)))
 
-        case PUT -> Root / corpId :? IsFavoriteMatcher(isFavorite)=>
+        case PUT -> Root / corpId :? IsFavoriteMatcher(isFavorite) =>
             Ok(Json.obj("count" -> Json.fromInt(repository.updateCorp(corpId, isFavorite))))
 
         case DELETE -> Root / corpId =>
