@@ -12,7 +12,7 @@ import org.http4s.dsl.Http4sDsl
 
 object TestService extends Http4sDsl[IO] {
 
-    val repository:TestRepository = new TestRepository(Database.transactor())
+    val repository: TestRepository = new TestRepository(Database.transactor())
 
     val service: HttpService[IO] = HttpService[IO] {
         case GET -> Root / "hello" / name =>

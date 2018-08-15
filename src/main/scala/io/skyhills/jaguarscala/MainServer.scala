@@ -17,7 +17,9 @@ object MainServer extends StreamApp[IO] {
 
 object ServerStream {
     def helloWorldService: HttpService[IO] = TestService.service
+
     def transactionService: HttpService[IO] = TransactionService.service
+
     def wishService: HttpService[IO] = WishService.service
 
 
@@ -25,7 +27,7 @@ object ServerStream {
         BlazeBuilder[IO]
             .bindHttp(8080, "0.0.0.0")
             .mountService(helloWorldService, "/")
-            .mountService(transactionService,"/history")
-            .mountService(wishService,"/wish")
+            .mountService(transactionService, "/history")
+            .mountService(wishService, "/wish")
             .serve
 }
