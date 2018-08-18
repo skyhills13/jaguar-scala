@@ -15,17 +15,6 @@ object TransactionService extends Http4sDsl[IO] {
         case GET -> Root / IntVar(corpId) =>
             Ok(Json.obj("corpId" -> Json.fromInt(corpId), "corpName" -> Json.fromString("aaa")))
 
-        case GET -> Root / IntVar(corpId) / "sell" =>
-            Ok("aaaa")
-
-        case GET -> Root / IntVar(corpId) / "buy" =>
-            Ok("aaaa")
-
-        case POST -> Root / IntVar(corpId) / "sell" =>
-            Ok("aaaa")
-
-        case POST -> Root / IntVar(corpId) / "buy" =>
-            Ok("aaaa")
     }
 }
 
