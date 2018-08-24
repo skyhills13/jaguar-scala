@@ -1,4 +1,4 @@
-package io.skyhills.jaguarscala.service
+package io.skyhills.jaguarscala.repository
 
 import cats.effect.IO
 import doobie.h2.H2Transactor
