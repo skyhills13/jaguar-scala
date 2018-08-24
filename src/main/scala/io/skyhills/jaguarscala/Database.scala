@@ -1,7 +1,7 @@
 package io.skyhills.jaguarscala
 
-import doobie._
 import cats.effect._
+import com.typesafe.config._
 import doobie.h2.H2Transactor
 
 /**
@@ -9,13 +9,13 @@ import doobie.h2.H2Transactor
   */
 object Database {
 
-    def transactor():H2Transactor[IO] = {
+    val conf: Config = ConfigFactory.load()
+
+    def transactor(): H2Transactor[IO] = {
         H2Transactor.newH2Transactor[IO](
-            "jdbc:h2:tcp://localhost/~/test",
-            "sa",
-            ""
+            conf.getString("db.url"),
+            conf.getString("db.user"),
+            conf.getString("db.password")
         ).unsafeRunSync()
     }
-
-    def init(transactor: Transactor[IO]): IO[Unit] = ???
 }
