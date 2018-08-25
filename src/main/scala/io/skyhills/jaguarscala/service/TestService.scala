@@ -21,7 +21,7 @@ object TestService extends Http4sDsl[IO] {
         case GET -> Root / "test" =>
             Ok(Corporation(1, "aaa", true).asJson)
 
-        case GET -> Root / "test" / LongVar(corpId) =>
+        case GET -> Root / "test" / corpId =>
             val corp = repository.getCorp(corpId).map(_.asJson)
             corp match {
                 case Some(c) =>

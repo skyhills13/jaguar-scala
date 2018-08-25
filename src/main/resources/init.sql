@@ -3,7 +3,7 @@
 CREATE TABLE IF NOT EXISTS corporation (
 corpId VARCHAR(20) NOT NULL,
 corpName VARCHAR(45) NOT NULL,
-isFavorite TINYINT(1) NOT NULL DEFAULT 0,
+isFavorite BOOLEAN NOT NULL DEFAULT false,
 PRIMARY KEY (corpId));
 
 -- Table wish
