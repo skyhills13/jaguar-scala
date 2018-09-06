@@ -11,12 +11,10 @@ object Database {
 
     val conf: Config = ConfigFactory.load()
 
-    def transactor(): Transactor[IO] = {
-        Transactor.fromDriverManager(
-            conf.getString("db.driver"),
-            conf.getString("db.url"),
-            conf.getString("db.user"),
-            conf.getString("db.password")
-        )
-    }
+    def transactor(): Transactor[IO] = Transactor.fromDriverManager(
+        conf.getString("db.driver"),
+        conf.getString("db.url"),
+        conf.getString("db.user"),
+        conf.getString("db.password")
+    )
 }
