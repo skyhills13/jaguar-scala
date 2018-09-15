@@ -23,14 +23,15 @@ object CorpService extends Http4sDsl[IO] {
     NOTE corpId is always 6 digit numbers with leading 0s
     ex 카카오 035720
     */
-    def initializeCorps(): Int = {
-        for (
-            line <- Source.fromURL(getClass.getResource("/corp.csv")).getLines()
-        ) {
-            val corpName = line.split(",").head
-            val corpId = "%06d".format(line.split(",").last.toInt)
-            repository.insertCorp(corpId, corpName, isFavorite = false)
-        }
-        Source.fromURL(getClass.getResource("/corp.csv")).getLines().length
-    }
+    def initializeCorps(): Int =
+        Source.fromURL(getClass.getResource("/corp.csv"))
+            .getLines()
+            .foldLeft(0) { (sum, line) =>
+                repository.insertCorp(
+                    line.split(",").head,
+                    "%06d".format(line.split(",").last.toInt),
+                    isFavorite = false
+                )
+                sum + 1
+            }
 }
