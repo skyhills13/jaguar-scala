@@ -2,7 +2,7 @@ package io.skyhills.jaguarscala
 
 import cats.effect.IO
 import fs2.{Stream, StreamApp}
-import io.skyhills.jaguarscala.service.{TestService, TransactionService, WishService}
+import io.skyhills.jaguarscala.service.{CorpService, TestService, TransactionService, WishService}
 import org.http4s.HttpService
 import org.http4s.server.blaze.BlazeBuilder
 
@@ -17,9 +17,8 @@ object MainServer extends StreamApp[IO] {
 
 object ServerStream {
     def helloWorldService: HttpService[IO] = TestService.service
-
     def transactionService: HttpService[IO] = TransactionService.service
-
+    def corpService: HttpService[IO] = CorpService.service
     def wishService: HttpService[IO] = WishService.service
 
 
@@ -27,6 +26,7 @@ object ServerStream {
         BlazeBuilder[IO]
             .bindHttp(8080, "0.0.0.0")
             .mountService(helloWorldService, "/")
+            .mountService(corpService, "/corp")
             .mountService(transactionService, "/history")
             .mountService(wishService, "/wish")
             .serve
